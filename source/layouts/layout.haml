@@ -1,0 +1,27 @@
+!!! 5
+
+/
+  :cdata
+    Susy grid tutorial
+
+%html.no-js{lang: 'en-CA'}
+  %head( prefix="" )
+    %meta{charset: 'utf-8'}
+    %meta{http: { equiv: 'X-UA-Compatible' }, content: 'IE=edge,chrome=1'}
+
+    %title= current_page.data.title || 'OnBlueDot'
+
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no")
+    %meta(name="apple-mobile-web-app-capable" content="yes")
+
+    %meta( property="og:title" content="Susy grid setup tutorial" )
+    %meta( property="og:description" content="Basic magic grid built using Susy" )
+
+    = stylesheet_link_tag 'site'
+    = yield_content :stylesheets
+
+    - if build?
+      / Add in Analytics
+
+  %body
+    = yield

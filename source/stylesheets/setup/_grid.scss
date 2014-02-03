@@ -1,0 +1,81 @@
+// ----------------------------------------------------------------------------
+// Magic (Responsive) Susy Grid System
+// ----------------------------------------------------------------------------
+
+$show-grid-backgrounds: true;
+
+// For full Susy documentation, visit: http://susy.oddbird.net/tutorial/
+
+// Define mobile-first grid constants.
+$total-columns:  6;
+$column-width:   64px;
+// $column-padding: 12px;
+$gutter-width:   18px;
+$grid-padding:   12px;
+
+$container-max-width: ($column-width * 12) + ($gutter-width * 12);
+
+// Uncomment to make the grid fluid (w/ a max-width)
+$container-style: fluid;
+.container {
+  max-width: $container-max-width;
+}
+
+// Define breakpoints, in this case when there's room for the specified columns.
+$mobile-columns: 6;
+$tablet-columns: 8;
+$desktop-columns: 12;
+
+$break-mobile:  $mobile-columns 568px;
+$break-tablet:  569px $tablet-columns 1023px;
+$break-desktop: 1024px $desktop-columns;
+
+//-----------------------------------------------------------------------------
+// Global Grid Styles
+//-----------------------------------------------------------------------------
+
+.container {
+  // Include `container` if this element will contain a grid system.
+  @include container($total-columns);
+  // Apply our grid background stripes for development.
+  @include susy-grid-background;
+}
+
+@mixin build-columns($column-count) {
+  @for $i from 1 through $column-count {
+    .col-#{$i}-#{$column-count} {
+      @include span-columns($i, $column-count);
+    }
+  }
+}
+
+// Automatically reset the grid width & re-apply the grid background
+// to responsive layouts.
+$layouts: $break-mobile $mobile-columns, $break-tablet $tablet-columns, $break-desktop $desktop-columns;
+@each $layout in $layouts {
+  $breakpoint: nth($layout, 1);
+  $column-count:    nth($layout, 2);
+
+  // Include mobile-first grid outside of media queries
+  @if $column-count == 6 {
+    @include build-columns($column-count)
+  }
+
+  @include at-breakpoint($breakpoint) {
+    .container {
+      @include set-container-width;
+      @include susy-grid-background;
+    }
+
+    @if $column-count != 6 {
+      @include build-columns($column-count)
+    }
+  }
+}
+
+// Build omega class
+[class^="col-"], [class*=" col-"] {
+  &.last {
+    @include omega;
+  }
+}

@@ -1,0 +1,25 @@
+@import "compass";
+@import "susy";
+
+@include global-reset;
+
+// Structure & Layout
+// ----------------------------------------
+
+
+// Colours
+// ----------------------------------------
+
+
+// Typography
+// ----------------------------------------
+$font-family:           "proxima-nova", "Proxima Nova", "Helvetica Neue", sans-serif;
+$font-family-secondary: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font-weight:           400;
+$font-weight-light:     300;
+$font-weight-semibold:  500;
+$font-weight-bold:      700;
+
+// Transitions
+// ----------------------------------------
+
